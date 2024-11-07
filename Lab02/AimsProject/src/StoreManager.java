@@ -8,7 +8,7 @@ public class StoreManager {
 	}
 	
 	public Order viewPendingOrder() {
-		
+		return new Order();
 	}
 	
 	public void approveOrder() {

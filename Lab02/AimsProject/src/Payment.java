@@ -6,6 +6,6 @@ public class Payment {
 	private String date;
 	
 	public boolean processPayment() {
-		
+		return true;
 	}
 }
