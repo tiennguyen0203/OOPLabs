@@ -41,14 +41,25 @@ public class DVD {
 			this.cost = _cost;
 		}
 	
-	//Getter and setter for attributes
-
-	
-	
 	public void playDemo() {
 		System.out.println("DVD demo is playing listen ...");
 	}
 	
+	public void displayInfor() {
+		System.out.println("DVD Id: " + id + " - "+ title + " - " + category + " - " + director + " - " + cost + "." );
+	}
+
+	public void dislplayDetail() {
+		System.out.println("DVD Id: " + id);
+		System.out.println("DVD Title: " + title);
+		System.out.println("Category: " + category);
+		System.out.println("Directed by: " + director);
+		System.out.println("Lenght: " + lenght);
+		System.out.println("Price: " + cost + "$.");
+	}
+	
+	
+	//Getter and setter for attributes
 	public int getId() {
 		return id;
 	}
@@ -95,14 +106,5 @@ public class DVD {
 
 	public void setCost(double cost) {
 		this.cost = cost;
-	}
-
-	public void dislplayDetail() {
-		System.out.println("DVD Id: " + id);
-		System.out.println("DVD Title: " + title);
-		System.out.println("Category: " + category);
-		System.out.println("Directed by: " + director);
-		System.out.println("Lenght: " + lenght);
-		System.out.println("Price: " + cost + "$.");
 	}
 }

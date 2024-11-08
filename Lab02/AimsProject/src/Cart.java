@@ -45,18 +45,14 @@ public class Cart {
 		System.out.println("Đã xóa DVD khỏi giỏ hàng.");
 	}
 	
-	public void updateQuantity(DVD dvd, int quantity) {
-		System.out.print("Nhập tên DVD cần thay đổi số lượng: ");
-		String dvdUpdateName = scanner.nextLine();
-		
-		System.out.print("Số lượng mới: ");
-		int dvdUpdateQuantity = scanner.nextInt();
-		
+	public void updateQuantity(String dvdName, int updateQuantity) {
 		for(CartItem check : cartItems) {
-			if(check.dvd.getTitle().equals(dvdUpdateName)) {
-				check.quantity = dvdUpdateQuantity;
+			if(check.dvd.getTitle().equals(dvdName)) {
+				check.quantity = updateQuantity;
 			}
 		}
+		
+		System.out.println("Bạn đã update giỏ hàng thành công.");
 	}
 	
 	public double calculateTotalCost() {
@@ -98,8 +94,15 @@ public class Cart {
 	}
 	
 	public void displayCartItems() {
-        for (CartItem item : cartItems) {
-            System.out.println("Title: " + item.dvd.getTitle() + ", Quantity: " + item.quantity + ", Subtotal: $" + item.getSubTotal());
-        }
+		double totalPrice = 0;
+		if(!cartItems.isEmpty()) {
+			for (CartItem item : cartItems) {
+	            System.out.println("Title: " + item.dvd.getTitle() + ", Quantity: " + item.quantity + ", Subtotal: $" + item.getSubTotal());
+	            totalPrice += item.getSubTotal();
+	        }
+		}
+		else System.out.println("Không có sản phẩm nào trong giỏ hàng!!!");
+        
+		System.out.println("Tổng: " + totalPrice);
     }
 }
