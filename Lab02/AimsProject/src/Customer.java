@@ -25,7 +25,7 @@ public class Customer {
 		
 		for(DVD item : dvd) {
 			System.out.println("Danh sách những DVD thể loại: " + strCategory);
-			if(strCategory == item.getCategory()) {
+			if(strCategory.equals(item.getCategory())) {
 				item.dislplayDetail();
 			}
 			else System.out.println("Không có kết quả!!!");

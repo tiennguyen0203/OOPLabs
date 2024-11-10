@@ -8,7 +8,7 @@ public class Cart {
 	
 	public static final int MAX_NUMBERS_ORDERS = 20;
 	
-	private List<CartItem> cartItems;
+	public List<CartItem> cartItems;
 	
 	public void addItem(DVD dvd, int quantity) {
 		if(cartItems.size() <= MAX_NUMBERS_ORDERS) {

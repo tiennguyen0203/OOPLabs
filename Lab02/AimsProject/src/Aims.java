@@ -1,9 +1,11 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Aims {
-
+	
 	public static void main(String[] args) {
 		
 		// TODO Auto-generated method stub
@@ -48,14 +50,17 @@ public class Aims {
         Scanner cartScanner = new Scanner(System.in);
         Scanner dvdUpdateScanner = new Scanner(System.in);
         Scanner dvdAddScanner = new Scanner(System.in);
+        Scanner deliveryScanner = new Scanner(System.in);
         
         StoreManager storeManager = new StoreManager("Nguyentien", "123456");
         Cart cart = new Cart();
-        int option = 0;;
+        List<OrderItem> orderitems = new ArrayList<OrderItem>();
+        int option = 0;
 		
 		System.out.println("Chào mừng bạn đã đến với hệ thống mua đĩa DVD. Hãy nhập thông tin của bạn để được hỗ trợ.");
 		System.out.print("Họ và tên khách hàng: ");
 		String customerName = aimsScanner.nextLine();
+		System.out.print("Email: ");
 		String customerEmail = aimsScanner.nextLine();
 		
 		Customer customer = new Customer(customerName, customerEmail, cart);
@@ -116,7 +121,20 @@ public class Aims {
 								String dvdName = dvdAddScanner.nextLine();
 								System.out.print("Số lượng: ");
 								int dvdAddQuantity = dvdUpdateScanner.nextInt();
-
+								
+								for(DVD dvd : dvdList) {
+									if(dvd.getTitle().equals(dvdName)){
+										cart.addItem(dvd, dvdAddQuantity);
+										System.out.println("Đã thêm sản phẩm vào giỏ hàng!");
+										cart.displayCartItems();
+									}
+									else {
+										System.out.println("Không có sản phẩm: " + dvdName);
+										cart.displayCartItems();
+									}
+								}
+								
+								break;
 							case 5:
 								System.out.print("Nhập tên DVD bạn muốn thay đổi số lượng: ");
 								String dvdUpdateName = dvdUpdateScanner.nextLine();
@@ -130,6 +148,29 @@ public class Aims {
 					}while(cartOption != 6);
 					break;
 				case 6: 
+					System.out.print("Vui lòng nhập địa chỉ giao hàng: ");
+					String address = deliveryScanner.nextLine();
+					System.out.print("Ghi chú giao hàng: ");
+					String instructions = deliveryScanner.nextLine();
+					
+					Delivery delivery = new Delivery(address, instructions, 1.00);
+					
+					System.out.println("Thông tin giao hàng:");
+					delivery.deliveryShowInformation(customer);
+					
+					LocalDateTime now = LocalDateTime.now();
+				      
+			        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+			        
+			        for(CartItem cartItem : cart.cartItems) {
+			        	orderitems.add(new OrderItem(cartItem.dvd, cartItem.quantity));
+			        }
+			        
+					Order order = new Order("ORDER-" + now.format(formatter), customer, orderitems, false);
+					storeManager.listOrder.add(order);
+					break;
+				case 7:
+					System.out.println("Đã thoát khỏi giỏ hàng!");
 					break;
 				default:
 					System.out.println("Lựa chọn không hợp lệ. Vui lòng nhập lại lựa chọn của bạn.");
@@ -142,7 +183,7 @@ public class Aims {
 		cartScanner.close();
 		dvdUpdateScanner.close();
 		dvdAddScanner.close();
+		deliveryScanner.close();
 	}
-	
 
 }

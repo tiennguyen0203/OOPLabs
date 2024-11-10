@@ -1,13 +1,13 @@
 import java.util.List;
 
 public class Order {
-	private int orderID;
+	private String orderID;
 	private Customer customer;
 	private List<OrderItem> orderitems;
 	private boolean status;
 	
 	
-	public Order(int orderID, Customer customer, List<OrderItem> orderitems, boolean status) {
+	public Order(String orderID, Customer customer, List<OrderItem> orderitems, boolean status) {
 		super();
 		this.orderID = orderID;
 		this.customer = customer;
@@ -32,12 +32,12 @@ public class Order {
 		return calculateTotalBeforeVAT()*1.08;
 	}
 
-	public int getOrderID() {
+	public String getOrderID() {
 		return orderID;
 	}
 
-	public void setOrderID(int orderID) {
-		this.orderID = orderID;
+	public void setOrderID(String orderID) {
+		this.orderID = orderID ;
 	}
 
 	public Customer getCustomer() {
