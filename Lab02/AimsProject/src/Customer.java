@@ -22,15 +22,15 @@ public class Customer {
 		String strCategory;
 		System.out.print("Nhập tên thể loại bạn muốn tìm kiếm: ");
 		strCategory = scanner.nextLine();
-		
+		System.out.println("Danh sách những DVD thể loại: " + strCategory);
+		boolean hasResult = false;
 		for(DVD item : dvd) {
-			System.out.println("Danh sách những DVD thể loại: " + strCategory);
 			if(strCategory.equals(item.getCategory())) {
-				item.dislplayDetail();
+				item.displayInfor();
+				hasResult = true;
 			}
-			else System.out.println("Không có kết quả!!!");
-			
 		}
+		if(hasResult == false) System.out.println("Không có kết quả tìm kiếm!!!");
 		
 		
 	}
@@ -39,35 +39,31 @@ public class Customer {
 		String strTitle;
 		System.out.println("Nhập tên DVD muốn tìm kiếm: ");
 		strTitle = scanner.nextLine();
-		
+		boolean hasResult = false;
+		System.out.println("Kết quả tìm kiếm: \"" + strTitle +"\"" );
 		for(DVD item : dvd) {
-			System.out.println("Kết quả tìm kiếm: \"" + strTitle +"\"" );
-			if(item.getTitle().contains(strTitle)) {
-				item.dislplayDetail();
-			}
-			else System.out.println("Không có kết quả!!!");
 			
+			if(item.getTitle().contains(strTitle)) {
+				item.displayInfor();
+				hasResult = true;
+			}
 		}
+		
+		if(hasResult == false) System.out.println("Không có kết quả tìm kiếm!!!");
 	}
 	
-	public void searchDVDsByCost(List<DVD> dvd) {
-		double strCost1;
-		double strCost2;
-		System.out.println("Nhập giá tiền bạn muốn: ");
-		System.out.print("Từ: ");
-		strCost1 = scanner.nextDouble();
+	public void searchDVDsByCost(List<DVD> dvd, double cost1, double cost2) {
+		boolean hasResult = false;
 		
-		System.out.print("Đến: ");
-		strCost2 = scanner.nextDouble();
-		
+		System.out.println("Danh sách những DVD trong tầm giá " + cost1 + "$ đến " + cost2 + "$:");
 		for(DVD item : dvd) {
-			System.out.println("Danh sách những DVD trong tầm giá " + strCost1 + "$ đến " + strCost2 + "$.");
-			if(item.getCost() >= strCost1 && item.getCost() <= strCost2){
-				item.dislplayDetail();
+			if(item.getCost() >= cost1 && item.getCost() <= cost2){
+				item.displayInfor();
+				hasResult = true;
 			}
-			else System.out.println("Không có kết quả!!!");
-			
 		}
+		
+		if(hasResult == false) System.out.println("Không có kết quả tìm kiếm!!!");
 	}
 	
 	public void placeOrder() {

@@ -47,10 +47,7 @@ public class Aims {
         dvdList.add(new DVD(35, "Mad Max: Fury Road", "Action", "George Miller", 120, 16.75));
         
         Scanner aimsScanner = new Scanner(System.in);
-        Scanner cartScanner = new Scanner(System.in);
-        Scanner dvdUpdateScanner = new Scanner(System.in);
-        Scanner dvdAddScanner = new Scanner(System.in);
-        Scanner deliveryScanner = new Scanner(System.in);
+        
         
         StoreManager storeManager = new StoreManager("Nguyentien", "123456");
         Cart cart = new Cart();
@@ -71,13 +68,12 @@ public class Aims {
 			System.out.println("2. Tìm kiếm DVD theo thể loại.");
 			System.out.println("3. Tìm kiến DVD theo tên.");
 			System.out.println("4. Tìm kiến DVD theo giá.");
-			System.out.println("5. Xem đơn hàng.");
-			System.out.println("6. Đặt giao hàng");
-			System.out.println("7. Thoát");
+			System.out.println("5. Xem giỏ hàng.");
+			System.out.println("6. Thoát.");
 			System.out.print("Nhập lựa chọn của bạn: ");
-			
 			option = aimsScanner.nextInt();
-			
+			aimsScanner.nextLine();
+			System.out.println();
 			switch(option) {
 				case 1:
 					for(DVD dvd : dvdList) dvd.displayInfor();
@@ -89,87 +85,108 @@ public class Aims {
 					customer.searchDVDsByTitle(dvdList);
 					break;
 				case 4:
-					customer.searchDVDsByCost(dvdList);
+					System.out.println("Nhập giá tiền bạn mong muốn.");
+					System.out.print("Từ: ");
+					double cost1 = aimsScanner.nextDouble();
+					aimsScanner.nextLine();
+					System.out.print("Đến: ");
+					double cost2 = aimsScanner.nextDouble();
+					aimsScanner.nextLine();
+					customer.searchDVDsByCost(dvdList, cost1, cost2);
 					break;
 				case 5: 
 					cart.displayCartItems();
 					int cartOption = 0;
 					do {
+						System.out.println();
 						System.out.println("1.Sắp xếp theo tiêu đề.");
 						System.out.println("2.Sắp xếp theo giá.");
 						System.out.println("3.Nhận DVD miễn phí.");
 						System.out.println("4.Thêm DVD vào giỏ hàng");
 						System.out.println("5.Thay đổi số lượng sản phẩm.");
-						System.out.println("6.Thanh toán đơn hàng.");
+						System.out.println("6.Đặt hàng.");
 						System.out.println("7.Thoát khỏi giỏ hàng.");
 						System.out.print("Nhập lựa chọn của bạn: ");
 						
-						cartOption = cartScanner.nextInt();
+						cartOption = aimsScanner.nextInt();
+						aimsScanner.nextLine();
 						
 						switch(cartOption) {
 							case 1: 
 								cart.sortItemsByTitle();
+								cart.displayCartItems();
 								break;
 							case 2:
 								cart.sortItemsByCost();
+								cart.displayCartItems();
 								break;
 							case 3: 
 								cart.getFreeItem();
+								cart.displayCartItems();
 								break;
 							case 4:
 								System.out.print("Nhập tên DVD bạn muốn thêm vào giỏ hàng: ");
-								String dvdName = dvdAddScanner.nextLine();
+								String dvdName = aimsScanner.nextLine();
 								System.out.print("Số lượng: ");
-								int dvdAddQuantity = dvdUpdateScanner.nextInt();
+								int quantity = aimsScanner.nextInt();
+								aimsScanner.nextLine();
+								
+								boolean added = false;
 								
 								for(DVD dvd : dvdList) {
 									if(dvd.getTitle().equals(dvdName)){
-										cart.addItem(dvd, dvdAddQuantity);
+										cart.addItem(dvd, quantity);
+										added = true;
 										System.out.println("Đã thêm sản phẩm vào giỏ hàng!");
-										cart.displayCartItems();
+										System.out.println();
 									}
-									else {
-										System.out.println("Không có sản phẩm: " + dvdName);
-										cart.displayCartItems();
-									}
+									
 								}
 								
+								if(added == false) {
+									System.out.println("Không có sản phẩm: " + dvdName);
+								}
+								
+								cart.displayCartItems();
 								break;
 							case 5:
 								System.out.print("Nhập tên DVD bạn muốn thay đổi số lượng: ");
-								String dvdUpdateName = dvdUpdateScanner.nextLine();
+								String dvdUpdateName = aimsScanner.nextLine();
 								System.out.print("Số lượng mới: ");
-								int updateQuantity = dvdUpdateScanner.nextInt();
+								int updateQuantity = aimsScanner.nextInt();
+								aimsScanner.nextLine();
 								cart.updateQuantity(dvdUpdateName, updateQuantity);
 								cart.displayCartItems();
+								break;
+								
+							case 6: 
+								System.out.print("Vui lòng nhập địa chỉ giao hàng: ");
+								String address = aimsScanner.nextLine();
+								System.out.print("Ghi chú giao hàng: ");
+								String instructions = aimsScanner.nextLine();
+								
+								Delivery delivery = new Delivery(address, instructions, 1.00);
+								
+								System.out.println("Thông tin giao hàng:");
+								delivery.deliveryShowInformation(customer);
+								
+								LocalDateTime now = LocalDateTime.now();
+							      
+						        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+						        
+						        for(CartItem cartItem : cart.cartItems) {
+						        	orderitems.add(new OrderItem(cartItem.dvd, cartItem.quantity));
+						        }
+						        
+								Order order = new Order("ORDER-" + now.format(formatter), customer, orderitems, false);
+								storeManager.listOrder.add(order);
+								break;
 						}
 						
 						
-					}while(cartOption != 6);
+					}while(cartOption != 7);
 					break;
-				case 6: 
-					System.out.print("Vui lòng nhập địa chỉ giao hàng: ");
-					String address = deliveryScanner.nextLine();
-					System.out.print("Ghi chú giao hàng: ");
-					String instructions = deliveryScanner.nextLine();
-					
-					Delivery delivery = new Delivery(address, instructions, 1.00);
-					
-					System.out.println("Thông tin giao hàng:");
-					delivery.deliveryShowInformation(customer);
-					
-					LocalDateTime now = LocalDateTime.now();
-				      
-			        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-			        
-			        for(CartItem cartItem : cart.cartItems) {
-			        	orderitems.add(new OrderItem(cartItem.dvd, cartItem.quantity));
-			        }
-			        
-					Order order = new Order("ORDER-" + now.format(formatter), customer, orderitems, false);
-					storeManager.listOrder.add(order);
-					break;
-				case 7:
+				case 6:
 					System.out.println("Đã thoát khỏi giỏ hàng!");
 					break;
 				default:
@@ -177,13 +194,9 @@ public class Aims {
 					break;
 				
 			}
-		}while(option != 7);
+		}while(option != 6);
 		
 		aimsScanner.close();
-		cartScanner.close();
-		dvdUpdateScanner.close();
-		dvdAddScanner.close();
-		deliveryScanner.close();
 	}
 
 }

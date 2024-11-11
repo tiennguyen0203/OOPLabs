@@ -1,28 +1,18 @@
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
+
 
 public class Cart {
-	Scanner scanner = new Scanner(System.in);
 	
 	public static final int MAX_NUMBERS_ORDERS = 20;
 	
-	public List<CartItem> cartItems;
+	public List<CartItem> cartItems = new ArrayList<>();
 	
 	public void addItem(DVD dvd, int quantity) {
 		if(cartItems.size() <= MAX_NUMBERS_ORDERS) {
-			System.out.print("Nhập tên DVD: ");
-			String dvdName = scanner.nextLine();
-			
-			DVD dvdAdd = new DVD(dvdName);
-			
-			System.out.print("Số lượng: ");
-			int dvdQuantity = scanner.nextInt();
-			
-			cartItems.add(new CartItem(dvdAdd, dvdQuantity));
-			
-			//If new item just add is same with an existing item, updateQuantity
+			cartItems.add(new CartItem(dvd, quantity));
 		}
 		else
 		{
@@ -32,10 +22,7 @@ public class Cart {
 		
 	}
 	
-	public void removeItem(DVD dvd) {
-		System.out.println("Nhập tên DVD cần xóa khỏi giỏ hàng: ");
-		String dvdRemove = scanner.nextLine();
-		
+	public void removeItem(DVD dvd, String dvdRemove) {
 		for(CartItem check : cartItems) {
 			if(check.dvd.getTitle().equals(dvdRemove)) {
 				cartItems.remove(check);
@@ -64,7 +51,7 @@ public class Cart {
 	}
 	
 	public void getFreeItem() {
-		System.out.println("You have just get a free DVD <3");
+		System.out.println("Bạn vừa nhận 1 DVD miễn phí <3");
 	}
 	
 	public void sortItemsByTitle() {
@@ -94,14 +81,23 @@ public class Cart {
 	}
 	
 	public void displayCartItems() {
+		
+		System.out.println();
+		System.out.println("*****Giỏ hàng của bạn*****");
 		double totalPrice = 0;
-		if(!cartItems.isEmpty()) {
+		
+		if(cartItems == null || cartItems.isEmpty()) 
+			{
+			System.out.println("Không có sản phẩm nào trong giỏ hàng!!!");
+			}
+		else
+			{
 			for (CartItem item : cartItems) {
 	            System.out.println("Title: " + item.dvd.getTitle() + ", Quantity: " + item.quantity + ", Subtotal: $" + item.getSubTotal());
 	            totalPrice += item.getSubTotal();
 	        }
-		}
-		else System.out.println("Không có sản phẩm nào trong giỏ hàng!!!");
+			
+			}
         
 		System.out.println("Tổng: " + totalPrice);
     }
