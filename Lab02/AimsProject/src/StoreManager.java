@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class StoreManager {
 	private String username;
 	private String password;
-	public List<Order> listOrder;
+	public List<Order> listOrder = new ArrayList<Order>();
 	
 	public StoreManager(String username, String password) {
 		super();

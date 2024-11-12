@@ -181,13 +181,20 @@ public class Aims {
 								Order order = new Order("ORDER-" + now.format(formatter), customer, orderitems, false);
 								storeManager.listOrder.add(order);
 								break;
+								
+							case 7:
+								System.out.println("Đã thoát khỏi giỏ hàng!");
+								break;
+							default:
+								System.out.println("Lựa chọn không hợp lệ. Vui lòng nhập lại lựa chọn của bạn.");
+								break;
 						}
 						
 						
 					}while(cartOption != 7);
 					break;
 				case 6:
-					System.out.println("Đã thoát khỏi giỏ hàng!");
+					System.out.println("Cảm ơn bạn. Hẹn gặp lại lần sau!!!");
 					break;
 				default:
 					System.out.println("Lựa chọn không hợp lệ. Vui lòng nhập lại lựa chọn của bạn.");
