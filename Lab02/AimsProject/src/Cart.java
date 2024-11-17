@@ -22,14 +22,8 @@ public class Cart {
 		
 	}
 	
-	public void removeItem(DVD dvd, String dvdRemove) {
-		for(CartItem check : cartItems) {
-			if(check.dvd.getTitle().equals(dvdRemove)) {
-				cartItems.remove(check);
-			}
-		}
-		
-		System.out.println("Đã xóa DVD khỏi giỏ hàng.");
+	public void removeItem(CartItem cartItem) {
+		cartItems.remove(cartItem);
 	}
 	
 	public void updateQuantity(String dvdName, int updateQuantity) {

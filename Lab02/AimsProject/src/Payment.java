@@ -1,4 +1,3 @@
-
 public class Payment {
 	private int transactionID;
 	private float amount;

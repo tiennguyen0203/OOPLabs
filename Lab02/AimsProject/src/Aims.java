@@ -1,6 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -104,8 +105,9 @@ public class Aims {
 						System.out.println("3.Nhận DVD miễn phí.");
 						System.out.println("4.Thêm DVD vào giỏ hàng");
 						System.out.println("5.Thay đổi số lượng sản phẩm.");
-						System.out.println("6.Đặt hàng.");
-						System.out.println("7.Thoát khỏi giỏ hàng.");
+						System.out.println("6.Xóa sản phẩm khỏi giỏ hàng");
+						System.out.println("7.Đặt hàng.");
+						System.out.println("8.Thoát khỏi giỏ hàng.");
 						System.out.print("Nhập lựa chọn của bạn: ");
 						
 						cartOption = aimsScanner.nextInt();
@@ -160,6 +162,36 @@ public class Aims {
 								break;
 								
 							case 6: 
+								System.out.print("Nhập tên DVD bạn muốn xóa khỏi giỏ hàng: ");
+								String dvdRemoveName = aimsScanner.nextLine();
+								
+								System.out.println(cart.cartItems.size());
+								
+								boolean removed = false;
+								
+								if (cart.cartItems != null) {
+								    
+								    Iterator<CartItem> iterator = cart.cartItems.iterator();
+								    while (iterator.hasNext()) {
+								        CartItem removeItem = iterator.next();
+								        if (removeItem.dvd.getTitle().equals(dvdRemoveName)) {
+								            iterator.remove(); 
+								            removed = true;
+								        }
+								    }
+								}
+															
+								
+								if(removed == false) {
+									System.out.println("Không có sản phẩm: " + dvdRemoveName);
+								}else {
+									System.out.println("Đã xóa sản phẩm khỏi giỏ hàng!");
+									System.out.println();
+								}
+								
+								cart.displayCartItems();
+								break;
+							case 7: 
 								System.out.print("Vui lòng nhập địa chỉ giao hàng: ");
 								String address = aimsScanner.nextLine();
 								System.out.print("Ghi chú giao hàng: ");
@@ -182,7 +214,7 @@ public class Aims {
 								storeManager.listOrder.add(order);
 								break;
 								
-							case 7:
+							case 8:
 								System.out.println("Đã thoát khỏi giỏ hàng!");
 								break;
 							default:
@@ -191,7 +223,7 @@ public class Aims {
 						}
 						
 						
-					}while(cartOption != 7);
+					}while(cartOption != 8);
 					break;
 				case 6:
 					System.out.println("Cảm ơn bạn. Hẹn gặp lại lần sau!!!");
