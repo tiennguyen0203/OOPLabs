@@ -1,5 +1,6 @@
 
 public class DVD {
+	private static int nbDVD = 0;
 	private int id;
 	private String title;
 	private String category;
@@ -12,6 +13,7 @@ public class DVD {
 	public DVD(String _title) {
 		super();
 		this.title = _title;
+		this.id = ++nbDVD;
 	}
 	
 	//Create a DVD object by category, title and cost
@@ -20,6 +22,7 @@ public class DVD {
 		this.title = _title;
 		this.category = _category;
 		this.cost = _cost;
+		this.id = ++nbDVD;
 	}
 	
 	//Create a DVD object by director, category, title and cost
@@ -29,16 +32,17 @@ public class DVD {
 		this.category = _category;
 		this.director = _director;
 		this.cost = _cost;
+		this.id = ++nbDVD;
 	}
 	
 	// Create a DVD object by all attributes: title, category, director, length and cost
-		public DVD(int _id, String _title, String _category, String _director, float _lenght, double _cost) {
-			this.id = _id;
+		public DVD(String _title, String _category, String _director, float _lenght, double _cost) {
 			this.title = _title;
 			this.category = _category;
 			this.director = _director;
 			this.lenght = _lenght;
 			this.cost = _cost;
+			this.id = ++nbDVD;
 		}
 	
 	public void playDemo() {
@@ -59,15 +63,10 @@ public class DVD {
 	}
 	
 	
-	//Getter and setter for attributes
+	//Getter and setter for attributes	
 	public int getId() {
 		return id;
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getTitle() {
 		return title;
 	}
