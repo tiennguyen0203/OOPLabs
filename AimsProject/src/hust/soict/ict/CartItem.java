@@ -1,4 +1,3 @@
-
 public class CartItem {
 	public static int nbCartItem = 0;
 	public int id;
