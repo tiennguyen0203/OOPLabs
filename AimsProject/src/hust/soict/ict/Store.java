@@ -1,19 +1,22 @@
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Store {
 	private static String passwordToStore = "nguyentien123";
+	public List<DVD> dvdList = new ArrayList<>();
 	public void addNewDVD(DVD dvd) {
-		Main.dvdList.add(dvd);
+		dvdList.add(dvd);
 		System.out.println("Thêm DVD mới thành công!!!");
 	}
 	
 	public void showDVDList() {
-		for(DVD dvd : Main.dvdList) dvd.displayInfor();
+		for(DVD dvd : dvdList) dvd.displayInfor();
 	}
 	
 	public void removeDVD(String strRemove) {
-		if(Main.dvdList != null){
-			Iterator<DVD> iterator = Main.dvdList.iterator();
+		if(dvdList != null){
+			Iterator<DVD> iterator = dvdList.iterator();
 			while(iterator.hasNext()) {
 				DVD removeDVD = iterator.next();
 				if(removeDVD.getTitle().equals(strRemove)) {

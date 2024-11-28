@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
 	public static List<DVD> dvdList = new ArrayList<>();
 	static Scanner aimsScanner = new Scanner(System.in);
+	
 	public static void main(String[] args) {
 		Cart cart = new Cart();
 		Store store = new Store();
@@ -182,9 +183,16 @@ public class Main {
             	break;
             case 2:
             	String password = "";
-            	System.out.print("Nhập mật khẩu cho quản lý:");
-            	password = aimsScanner.nextLine();
-            	if(password.equals(store.getPasswordToStore())) {
+            	do {
+            		System.out.print("Nhập mật khẩu cho quản lý:");
+                	password = aimsScanner.nextLine();
+                	if(!password.equals(store.getPasswordToStore())) {
+                		System.out.println("Sai mật khẩu. Vui lòng nhập lại!!!");
+                	}
+            	}while(!password.equals(store.getPasswordToStore()));
+            	
+            	
+            	
             		System.out.println("Chào mừng đến với trang quản lý cửa hàng DVD.");
             		int storeOption = 0;
             		do {
@@ -230,7 +238,8 @@ public class Main {
             			}
             			
             		}while(storeOption != 4);
-            	}
+            	
+            	
             	break;
             case 3:
             	System.out.println("Cảm ơn bạn đã ghé thăm hệ thống cửa hàng DVD. Hẹn gặp lại lần sau!!!");

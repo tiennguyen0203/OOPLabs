@@ -16,7 +16,7 @@ public class Cart {
 		}
 	}
 	
-	public void addItem(CartItem [] cartItem) {
+	public void addItem(List<CartItem> cartItem) {
 		
 		for(CartItem item : cartItem) {
 			if(cartItems.size() <= MAX_NUMBERS_ORDERS) {
