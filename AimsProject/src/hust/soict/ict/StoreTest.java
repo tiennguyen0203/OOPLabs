@@ -44,7 +44,7 @@ public class StoreTest {
     				System.out.print("Giá tiền: ");
     				double cost = storeScanner.nextDouble();
     				
-    				store.addNewDVD(new DVD(title,category,director,lenght,cost));
+    				store.addNewDVD(new DigitalVideoDisc(title,category,director,lenght,cost));
     				
     				System.out.println("Thêm DVD mới thành công");
     				break;

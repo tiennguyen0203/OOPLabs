@@ -1,8 +1,8 @@
 public class TestPassingParameter {
 
 	public static void main(String[] args) {
-		DVD jungleDVD = new DVD("Jungle");
-		DVD cinderellaDVD = new DVD("Cinderella");
+		DigitalVideoDisc jungleDVD = new DigitalVideoDisc("Jungle");
+		DigitalVideoDisc cinderellaDVD = new DigitalVideoDisc("Cinderella");
 		
 		System.out.println("Before swap:");
 		System.out.println("   Jungle title: "+jungleDVD.getTitle()); 				//Jungle title: Jungle
@@ -32,7 +32,7 @@ public class TestPassingParameter {
 //		dvd = new DVD(oldTitle);
 //		
 //	}
-	private static void swap2(DVD dvd1, DVD dvd2) {
+	private static void swap2(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
 		String tempTitle = dvd1.getTitle();
 		dvd1.setTitle(dvd2.getTitle());
 		dvd2.setTitle(tempTitle);

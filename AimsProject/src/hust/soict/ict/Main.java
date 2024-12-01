@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-	public static List<DVD> dvdList = new ArrayList<>();
+	public static List<DigitalVideoDisc> dvdList = new ArrayList<>();
 	static Scanner aimsScanner = new Scanner(System.in);
 	
 	public static void main(String[] args) {
@@ -11,16 +11,16 @@ public class Main {
 		Store store = new Store();
 		int option = 0;
 		
-		dvdList.add(new DVD("The Shawshank Redemption", "Drama", "Frank Darabont", 142, 15.99));
-        dvdList.add(new DVD("The Godfather", "Crime", "Francis Ford Coppola", 175, 18.50));
-        dvdList.add(new DVD("The Dark Knight", "Action", "Christopher Nolan", 152, 20.00));
-        dvdList.add(new DVD("Schindler's List", "Biography", "Steven Spielberg", 195, 12.99));
-        dvdList.add(new DVD("Pulp Fiction", "Crime", "Quentin Tarantino", 154, 16.75));
-        dvdList.add(new DVD("The Lord of the Rings: The Return of the King", "Adventure", "Peter Jackson", 201, 19.99));
-        dvdList.add(new DVD("Forrest Gump", "Drama", "Robert Zemeckis", 142, 14.99));
-        dvdList.add(new DVD("Inception", "Sci-Fi", "Christopher Nolan", 148, 17.50));
-        dvdList.add(new DVD("Fight Club", "Drama", "David Fincher", 139, 13.99));
-        dvdList.add(new DVD("The Matrix", "Sci-Fi", "Lana Wachowski, Lilly Wachowski", 136, 15.00));
+		dvdList.add(new DigitalVideoDisc("The Shawshank Redemption", "Drama", "Frank Darabont", 142, 15.99));
+        dvdList.add(new DigitalVideoDisc("The Godfather", "Crime", "Francis Ford Coppola", 175, 18.50));
+        dvdList.add(new DigitalVideoDisc("The Dark Knight", "Action", "Christopher Nolan", 152, 20.00));
+        dvdList.add(new DigitalVideoDisc("Schindler's List", "Biography", "Steven Spielberg", 195, 12.99));
+        dvdList.add(new DigitalVideoDisc("Pulp Fiction", "Crime", "Quentin Tarantino", 154, 16.75));
+        dvdList.add(new DigitalVideoDisc("The Lord of the Rings: The Return of the King", "Adventure", "Peter Jackson", 201, 19.99));
+        dvdList.add(new DigitalVideoDisc("Forrest Gump", "Drama", "Robert Zemeckis", 142, 14.99));
+        dvdList.add(new DigitalVideoDisc("Inception", "Sci-Fi", "Christopher Nolan", 148, 17.50));
+        dvdList.add(new DigitalVideoDisc("Fight Club", "Drama", "David Fincher", 139, 13.99));
+        dvdList.add(new DigitalVideoDisc("The Matrix", "Sci-Fi", "Lana Wachowski, Lilly Wachowski", 136, 15.00));
         
         System.out.println("Chào mừng bạn đến với hệ thống cửa hàng DVD.");
         
@@ -56,7 +56,7 @@ public class Main {
         			System.out.println();
         			switch(option) {
         				case 1:
-        					for(DVD dvd : dvdList) dvd.displayInfor();
+        					for(DigitalVideoDisc digitalVideoDisc : dvdList) digitalVideoDisc.displayInfor();
         					break;
         				case 2: 
         					searchDVDsByCategory(dvdList);
@@ -116,9 +116,9 @@ public class Main {
         								
         								boolean added = false;
         								
-        								for(DVD dvd : dvdList) {
-        									if(dvd.getTitle().equals(dvdName)){
-        										cart.addItem(new CartItem(dvd, quantity));
+        								for(DigitalVideoDisc digitalVideoDisc : dvdList) {
+        									if(digitalVideoDisc.getTitle().equals(dvdName)){
+        										cart.addItem(new CartItem(digitalVideoDisc, quantity));
         										added = true;
         										System.out.println("Đã thêm sản phẩm vào giỏ hàng!");
         										System.out.println();
@@ -220,7 +220,7 @@ public class Main {
             				System.out.print("Giá tiền: ");
             				double cost = aimsScanner.nextDouble();
             				
-            				store.addNewDVD(new DVD(title,category,director,lenght,cost));
+            				store.addNewDVD(new DigitalVideoDisc(title,category,director,lenght,cost));
             				
             				System.out.println("Thêm DVD mới thành công");
             				break;
@@ -251,13 +251,13 @@ public class Main {
 	}
 	
 	
-	public static void searchDVDsByCategory(List<DVD> dvd) {
+	public static void searchDVDsByCategory(List<DigitalVideoDisc> digitalVideoDisc) {
 		String strCategory;
 		System.out.print("Nhập tên thể loại bạn muốn tìm kiếm: ");
 		strCategory = aimsScanner.nextLine();
 		System.out.println("Danh sách những DVD thể loại: " + strCategory);
 		boolean hasResult = false;
-		for(DVD item : dvd) {
+		for(DigitalVideoDisc item : digitalVideoDisc) {
 			if(strCategory.equals(item.getCategory())) {
 				item.displayInfor();
 				hasResult = true;
@@ -268,13 +268,13 @@ public class Main {
 		
 	}
 	
-	public static void searchDVDsByTitle(List<DVD> dvd) {
+	public static void searchDVDsByTitle(List<DigitalVideoDisc> digitalVideoDisc) {
 		String strTitle;
 		System.out.println("Nhập tên DVD muốn tìm kiếm: ");
 		strTitle = aimsScanner.nextLine();
 		boolean hasResult = false;
 		System.out.println("Kết quả tìm kiếm: \"" + strTitle +"\"" );
-		for(DVD item : dvd) {
+		for(DigitalVideoDisc item : digitalVideoDisc) {
 			
 			if(item.getTitle().contains(strTitle)) {
 				item.displayInfor();
@@ -285,11 +285,11 @@ public class Main {
 		if(hasResult == false) System.out.println("Không có kết quả tìm kiếm!!!");
 	}
 	
-	public static void searchDVDsByCost(List<DVD> dvd, double cost1, double cost2) {
+	public static void searchDVDsByCost(List<DigitalVideoDisc> digitalVideoDisc, double cost1, double cost2) {
 		boolean hasResult = false;
 		
 		System.out.println("Danh sách những DVD trong tầm giá " + cost1 + "$ đến " + cost2 + "$:");
-		for(DVD item : dvd) {
+		for(DigitalVideoDisc item : digitalVideoDisc) {
 			if(item.getCost() >= cost1 && item.getCost() <= cost2){
 				item.displayInfor();
 				hasResult = true;
