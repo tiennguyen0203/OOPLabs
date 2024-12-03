@@ -1,9 +1,10 @@
+import java.util.Comparator;
 
 public abstract class Media {
 	private int id;
-	private String title;
+	protected String title;
 	private String category;
-	private float cost;
+	protected float cost;
 	
 	public Media(int id, String title, String category, float cost) {
 		this.id = id;
@@ -12,12 +13,49 @@ public abstract class Media {
 		this.cost = cost;
 	}
 	
-	public boolean equals(Media o1, Media o2) {
-		if(o1.getTitle() == o2.getTitle()) {
-			return true;
+	
+	@Override
+	public boolean equals(Object obj) {	
+		if(this == obj) return true;
+		if(obj == null || getClass() != obj.getClass()) {
+			return false;
 		}
-		else return false;
+		
+		Media media = (Media) obj;
+		return title != null && title.equals(media.title);
 	}
+	
+	@Override
+    public int hashCode() {
+        return title != null ? title.hashCode() : 0;
+    }
+	
+	
+	public static final Comparator<Media> COMPARE_BY_TITLE_COST = new Comparator<Media>() {
+        @Override
+        public int compare(Media media1, Media media2) {
+            int titleComparison = media1.getTitle().compareTo(media2.getTitle());
+            
+            if (titleComparison != 0) {
+                return titleComparison;
+            }
+            
+            return Float.compare(media2.getCost(), media1.getCost());
+        }
+    };
+    
+    public static final Comparator<Media> COMPARE_BY_COST_TITLE = new Comparator<Media>() {
+        @Override
+        public int compare(Media media1, Media media2) {
+            int costComparison = Float.compare(media2.getCost(), media1.getCost());
+            
+            if (costComparison != 0) {
+                return costComparison;
+            }
+            
+            return media1.getTitle().compareTo(media2.getTitle());
+        }
+    };
 	
 	public int getId() {
 		return id;

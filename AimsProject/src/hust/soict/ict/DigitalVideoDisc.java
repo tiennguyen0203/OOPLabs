@@ -8,7 +8,11 @@ public class DigitalVideoDisc extends Disc implements Playable {
 				
 	}
 
-	
+	@Override
+    public String toString() {
+        return "DigitalVideoDisc [Title=" + getTitle() + ", Category=" + getCategory() + ", Cost=" + getCost() +
+               ", Director=" + getDirector() + ", Length=" + getLength() + " minutes]";
+    }
 	
 	
 }
